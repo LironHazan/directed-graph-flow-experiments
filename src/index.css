@@ -1,0 +1,25 @@
+
+body {
+
+
+}
+
+svg {
+    font-family: monospace;
+}
+.node {
+
+}
+
+.node circle {
+    fill: lightgray;
+    stroke: black;
+    stroke-opacity: 0.5;
+    cursor: pointer;
+}
+
+.node text {
+    text-anchor: middle;
+}
+
+.link { stroke: #999; stroke-opacity: .6; stroke-width: 2px; }
