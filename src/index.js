@@ -13,6 +13,10 @@ const svg = d3.select("svg");
 const width = +svg.attr("width");
 const height = +svg.attr("height");
 
+document.querySelector('p').addEventListener('remove', function(event) {
+    console.log(event);
+});
+
 export const render = (data) => {
     
     let { links, nodes } = data;
@@ -101,6 +105,16 @@ export const render = (data) => {
         links = removeLinksRelations(links, id);
         nodes = nodes.filter(node => id !== node.id);
         render({ links, nodes });
+        
+        //todo dispatch custom event "remove"
+        d3.select(this)
+        .on('remove', function(d, i) {
+            var evt = d3.event;
+          //  console.log(evt);
+          });
+
+          d3.select('p')
+          .dispatch('remove', {detail: {myCustomObject:'bla bla bla'} })
       })
 
     const nodeText = node.append("text")
