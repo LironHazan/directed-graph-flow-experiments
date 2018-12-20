@@ -160,6 +160,17 @@ export class DirectedGraphExperimentService {
         d3.select(this)
         .style("stroke", "green");
     });
+
+      // appand trash icons to all nodes
+      node.append('svg:foreignObject')
+      .attr("class", "delete-icon")
+      .html('<div style="color:green;padding-left: 50px;">remove</div>');
+  
+      svg.selectAll('.delete-icon')
+      .on('click', function ({id}) {
+          // subject to notify delte
+          console.log(id);
+        })
     
     const nodeText = node.append("text")
         .style("text-anchor", "middle")

@@ -7,7 +7,6 @@ import "d3-selection-multi";
   template: `
       <svg #directedGraphExperiment width="900" height="600"></svg>
   `,
-  styles: []
 })
 export class DirectedGraphExperimentComponent implements OnInit {
 
