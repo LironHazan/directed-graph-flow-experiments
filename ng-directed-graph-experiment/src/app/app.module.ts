@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {DirectedGraphExperimentComponent, DirectedGraphExperimentModule} from '../../projects/directed-graph-experiment/src/public_api';
 
 import { AppComponent } from './app.component';
 
@@ -8,7 +9,8 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    DirectedGraphExperimentModule
   ],
   providers: [],
   bootstrap: [AppComponent]

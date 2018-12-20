@@ -9,14 +9,6 @@ export class DirectedGraphExperimentService {
 
   constructor() { }
 
-  svg = d3.select('#directed-graph-experiment');
-
-  private resetStyle(d3, element) {
-    d3.selectAll(element)
-    .style("fill", "lightgray");
-    return d3;
-  }
-
   private clearView(svg) {
     return svg.selectAll("*").remove();
   }
@@ -87,8 +79,7 @@ export class DirectedGraphExperimentService {
     let { links, nodes } = data;
     this.clearView(svg); // removes everything! 
     this.initDefinitions(svg);
-    const simulation = this.forceSimulation(d3, 
-        {width: +svg.attr("width"),height: +svg.attr("height")});
+    const simulation = this.forceSimulation(d3, {width: +svg.attr("width"),height: +svg.attr("height")});
 
     const link = svg.selectAll(".link")
         .data(links)
@@ -196,7 +187,8 @@ export class DirectedGraphExperimentService {
         .links(links);
   }
 
-  public update(data) {
-    return this._update(d3, this.svg, data)
+  public update(data, element) {
+    const svg = d3.select(element);
+    return this._update(d3, svg, data);
   }
 }
