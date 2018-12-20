@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import {DirectedGraphExperimentService} from './directed-graph-experiment.service';
-import "d3-selection-multi";
 
 @Component({
   selector: 'dge-directed-graph-experiment',

@@ -20,8 +20,12 @@ export class DirectedGraphExperimentService {
     .attr("x2", function (d) {return d.target.x;})
     .attr("y2", function (d) {return d.target.y;});
 
-    node.attr("transform", 
-    function (d) {return "translate(" + d.x + ", " + d.y + ")";});
+    node
+    .attr("transform", function (d) {return "translate(" + d.x + ", " + d.y + ")";})
+    .attr("cx", function(d) { // boundries 
+        return d.x = Math.max(40, Math.min(600 - 15, d.x)); })
+    .attr("cy", function(d) { 
+        return d.y = Math.max(50, Math.min(600 - 40, d.y)); });
 
     edgepaths.attr('d', function (d) {
         return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
