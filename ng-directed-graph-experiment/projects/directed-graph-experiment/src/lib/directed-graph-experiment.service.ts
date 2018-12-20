@@ -9,14 +9,6 @@ export class DirectedGraphExperimentService {
 
   constructor() { }
 
-  svg = d3.select('#directed-graph-experiment');
-
-  private resetStyle(d3, element) {
-    d3.selectAll(element)
-    .style("fill", "lightgray");
-    return d3;
-  }
-
   private clearView(svg) {
     return svg.selectAll("*").remove();
   }
@@ -28,8 +20,12 @@ export class DirectedGraphExperimentService {
     .attr("x2", function (d) {return d.target.x;})
     .attr("y2", function (d) {return d.target.y;});
 
-    node.attr("transform", 
-    function (d) {return "translate(" + d.x + ", " + d.y + ")";});
+    node
+    .attr("transform", function (d) {return "translate(" + d.x + ", " + d.y + ")";})
+    .attr("cx", function(d) { // boundries 
+        return d.x = Math.max(40, Math.min(600 - 15, d.x)); })
+    .attr("cy", function(d) { 
+        return d.y = Math.max(50, Math.min(600 - 40, d.y)); });
 
     edgepaths.attr('d', function (d) {
         return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
@@ -87,8 +83,7 @@ export class DirectedGraphExperimentService {
     let { links, nodes } = data;
     this.clearView(svg); // removes everything! 
     this.initDefinitions(svg);
-    const simulation = this.forceSimulation(d3, 
-        {width: +svg.attr("width"),height: +svg.attr("height")});
+    const simulation = this.forceSimulation(d3, {width: +svg.attr("width"),height: +svg.attr("height")});
 
     const link = svg.selectAll(".link")
         .data(links)
@@ -169,6 +164,17 @@ export class DirectedGraphExperimentService {
         d3.select(this)
         .style("stroke", "green");
     });
+
+      // appand trash icons to all nodes
+      node.append('svg:foreignObject')
+      .attr("class", "delete-icon")
+      .html('<div style="color:green;padding-left: 50px;">remove</div>');
+  
+      svg.selectAll('.delete-icon')
+      .on('click', function ({id}) {
+          // subject to notify delte
+          console.log(id);
+        })
     
     const nodeText = node.append("text")
         .style("text-anchor", "middle")
@@ -196,7 +202,8 @@ export class DirectedGraphExperimentService {
         .links(links);
   }
 
-  public update(data) {
-    return this._update(d3, this.svg, data)
+  public update(data, element) {
+    const svg = d3.select(element);
+    return this._update(d3, svg, data);
   }
 }
